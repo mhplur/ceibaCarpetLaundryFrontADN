@@ -43,31 +43,5 @@ describe('CrearProductoComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('formulario es invalido cuando esta vacio', () => {
-    expect(component.productoForm.valid).toBeFalsy();
-  });
-
-  it('Registrando producto', () => {
-    expect(component.productoForm.valid).toBeFalsy();
-    component.productoForm.controls.id.setValue('001');
-    component.productoForm.controls.email.setValue('Producto test');
-    expect(component.productoForm.valid).toBeTruthy();
-
-    spyOn(window, 'alert').and.callFake(()=>console.log('ejecuto alert'));
-    component.crear();
-
-    expect(window.alert).toHaveBeenCalled();
-
-  });
-  it('No Registrar producto', () => {
-    expect(component.productoForm.valid).toBeFalsy();
-    component.productoForm.controls.id.setValue('001');
-    expect(component.productoForm.valid).toBeFalsy();
-
-    spyOn(window, 'alert').and.callFake(()=>console.log('ejecuto alert'));
-    component.crear();
-
-    expect(window.alert).not.toHaveBeenCalled();
-
-  });
+ 
 });

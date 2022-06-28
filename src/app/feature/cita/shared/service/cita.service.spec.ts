@@ -1,16 +1,14 @@
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { HttpService } from '@core/services/http.service';
-import { Cliente } from 'src/app/feature/cliente/shared/model/cliente';
-import { Cita } from '../model/cita';
-import { Tarifa } from '../model/tarifa';
+import { CitaResumenDto } from '../model/citaResumenDto';
 
 import { CitaService } from './cita.service';
 
 describe('CitaService', () => {
   let httpMock: HttpTestingController;
   let service: CitaService;
-  const apiEndpointCitaConsulta = "http://localhost:8081/carpet-laundry/cita/todas";
+  const apiEndpointCitaConsulta = "http://localhost:8081/carpet-laundry/cita/activa";
 
   beforeEach(() => {
     const injector = TestBed.configureTestingModule({
@@ -22,18 +20,15 @@ describe('CitaService', () => {
   });
 
   it('should be created', () => {
-    const citaSerice: CitaService = TestBed.inject(CitaService);
-    expect(citaSerice).toBeTruthy();
+    const citaService: CitaService = TestBed.inject(CitaService);
+    expect(citaService).toBeTruthy();
   });
 
   it('deberia listar citas', () => {
-    const cliente1: Cliente = new Cliente(1, '001', 'MILTON PAREDES', 'QUITO');
-    const cliente2: Cliente = new Cliente(2, '002', 'JUAN ANDRADE', 'MEDELLIN');
-    const tarifaVapor: Tarifa = new Tarifa(1, 'VAPOR O AGUA CALIENTE', 'W001', 24, 15, 1);
-    const dummyCitas: Cita[] =
+    const dummyCitas: CitaResumenDto[] =
       [
-        { id: 1, client: cliente1, tarifa: tarifaVapor, fechaCita: new Date('2022-06-20'), horaCita: '08:00:00', horario: 'DIA', estado: 1, costo: 15 },
-        { id: 2, client: cliente2, tarifa: tarifaVapor, fechaCita: new Date('2022-06-20'), horaCita: '12:00:00', horario: 'DIA', estado: 1, costo: 15 }
+        { id: 1, clienteNombre: 'MILTON PAREDES', tarifaNombre: 'VAPOR O AGUA CALIENTE', fechaCita: new Date('2022-06-20'), horaCita: '08:00:00', horario: 'DIA', estado: 1, costo: 15, metrosCuadrados: 1 },
+        { id: 2, clienteNombre: 'JUAN ANDRADE', tarifaNombre: 'VAPOR O AGUA CALIENTE', fechaCita: new Date('2022-06-20'), horaCita: '12:00:00', horario: 'DIA', estado: 1, costo: 15, metrosCuadrados: 1 }
       ];
 
     service.getCitas().subscribe(citas => {

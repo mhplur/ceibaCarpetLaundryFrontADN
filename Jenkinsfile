@@ -1,3 +1,4 @@
+@Library('ceiba-jenkins-library') _
 pipeline {
   //Donde se va a ejecutar el Pipeline
   agent {
@@ -12,7 +13,7 @@ pipeline {
 
   //Una sección que define las herramientas “preinstaladas” en Jenkins
   tools {
-    jdk 'JDK8_Centos' //Verisión preinstalada en la Configuración del Master
+    jdk 'JDK14_Centos' //Verisión preinstalada en la Configuración del Master
   }
 /*  Versiones disponibles
       JDK8_Mac
@@ -30,28 +31,43 @@ pipeline {
     stage('Checkout') {
       steps{
         echo "------------>Checkout<------------"
+        checkout scm
+      }
+    }
+
+    stage('clean') {
+      steps {
+        sh 'npm cache clean --force'
+      }
+    }
+
+    stage('NPM Install') {
+      steps {
+        sh 'npm install'
       }
     }
     
-    stage('Compile & Unit Tests') {
-      steps{
-        echo "------------>Compile & Unit Tests<------------"
-
+    stage('Unit Test') {
+      steps {
+        //echo "------------>Testing<------------"
+        sh 'npm run test -- --watch=false --browsers ChromeHeadless'
       }
     }
 
     stage('Static Code Analysis') {
       steps{
         echo '------------>Análisis de código estático<------------'
-        withSonarQubeEnv('Sonar') {
-sh "${tool name: 'SonarScanner', type:'hudson.plugins.sonar.SonarRunnerInstallation'}/bin/sonar-scanner -Dproject.settings=sonar-project.properties"
-        }
+        sonarqubeMasQualityGatesP(
+        sonarKey:'co.com.ceiba.adn:lavadoralfombraFront-milton.paredes',
+        sonarName:'"CeibaADN-lavadoralfombraFront(milton.paredes)"',
+        sonarPathProperties:'./sonar-project.properties')
       }
     }
 
     stage('Build') {
       steps {
         echo "------------>Build<------------"
+        sh 'npm run build'
       }
     }  
   }

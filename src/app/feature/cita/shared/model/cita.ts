@@ -10,4 +10,5 @@ export class Cita {
     horario: string;
     estado: number;
     costo: number;
+    metrosCuadrados: number;
 }

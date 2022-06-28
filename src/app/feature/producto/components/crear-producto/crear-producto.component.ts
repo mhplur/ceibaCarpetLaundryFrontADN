@@ -19,7 +19,7 @@ export class CrearProductoComponent implements OnInit {
     this.construirFormularioProducto();
   }
 
-  crear() {
+  crear() { 
     if(this.productoForm.valid){
       this.productoServices.guardar(this.productoForm.value).subscribe(()=>window.alert('usuario creado'));
     }

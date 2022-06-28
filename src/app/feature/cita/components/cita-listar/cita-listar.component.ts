@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Cita } from '../../shared/model/cita';
+import swal from 'sweetalert2';
+import { CitaResumenDto } from '../../shared/model/citaResumenDto';
 import { CitaService } from '../../shared/service/cita.service';
 
 @Component({
@@ -10,16 +11,48 @@ import { CitaService } from '../../shared/service/cita.service';
 })
 export class CitaListarComponent implements OnInit {
 
-  public citas: Observable<Cita[]>;
+  public citaResumenDto: Observable<CitaResumenDto[]>;
   private citaService: CitaService;
 
-  constructor(citaService: CitaService) { 
+  constructor(citaService: CitaService) {
     this.citaService = citaService;
   }
 
   ngOnInit(): void {
     console.log("Entro al metodo de buscar citas");
-    this.citas = this.citaService.getCitas();
+    this.citaResumenDto = this.citaService.getCitas();
+  }
+
+  cancelarCita(citaResumenDto: CitaResumenDto): void {
+    swal({
+      title: 'Está seguro?',
+      text: `¿Seguro que desea cancelar a la cita para la fecha  ${citaResumenDto.fechaCita}?`,
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si',
+      cancelButtonText: 'No',
+      confirmButtonClass: 'btn btn-success',
+      cancelButtonClass: 'btn btn-danger',
+      buttonsStyling: false,
+      reverseButtons: true
+    }).then((result) => {
+      if (result.value) {
+
+        this.citaService.cancelarCita(citaResumenDto.id).subscribe(
+          () => {
+            swal(
+              'Cita Cancelada!',
+              `Cita con fecha ${citaResumenDto.fechaCita} cancelada con éxito.`,
+              'success'
+            )
+            window.location.reload();
+          }
+        )
+
+      }
+    })
   }
 
 }

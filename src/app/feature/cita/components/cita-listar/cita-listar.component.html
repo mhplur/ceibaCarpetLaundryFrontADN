@@ -3,34 +3,38 @@
     <div class="card-header">Citas</div>
     <div class="card-body">
         <h5 class="card-title">Listado de citas</h5>
-        <table id="example" class="table table-striped" style="width:100%" >
+        <table id="example" class="table table-striped" style="width:100%">
             <caption>Citas realizadas</caption>
             <thead>
                 <tr>
-                    <th>id</th> 
+                    <th>id</th>
                     <th>Cliente</th>
                     <th>Tarifa</th>
                     <th>Fecha de la cita</th>
                     <th>Hora de la cita</th>
                     <th>Horario(DIA/NOCHE)</th>
-                    <th>Estado</th>
+                    <th>Metros cuadrados</th>
                     <th>Costo</th>
                     <th>Cancelar</th>
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let cita of citas | async">
+                <tr *ngFor="let cita of citaResumenDto | async">
                     <td>{{cita.id}}</td>
-                    <td>{{cita.client.nombre}}</td>
-                    <td>{{cita.tarifa.nombre}}</td>
+                    <td>{{cita.clienteNombre}}</td>
+                    <td>{{cita.tarifaNombre}}</td>
                     <td>{{cita.fechaCita}}</td>
                     <td>{{cita.horaCita}}</td>
                     <td>{{cita.horario}}</td>
-                    <td>{{cita.estado}}</td>
-                    <td>{{cita.costo}}</td>
+                    <td>{{cita.metrosCuadrados}}</td>
+                    <td>${{cita.costo}}</td>
+                    <td>
+                        <button type="button" name="eliminar" (click)="cancelarCita(cita)"
+                            class="btn btn-danger btn-sm">Cancelar</button>
+                    </td>
                 </tr>
             </tbody>
+
         </table>
     </div>
 </div>
-
