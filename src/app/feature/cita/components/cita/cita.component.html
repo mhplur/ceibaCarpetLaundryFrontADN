@@ -1,7 +1,14 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <!--<a id="linkCita" routerLink="./" routerLinkActive="active"
-    [routerLinkActiveOptions]="{ exact: true }">Cita</a>-->
-    <a id="linkCitaListar" class="btn btn-info" routerLink="./listar" routerLinkActive="active">Listado Citas</a>
-    <a id="linkCitaCrear" class="btn btn-info" routerLink="./crear" routerLinkActive="active">Crear Cita</a>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+                <a id="linkCitaListar" class="btn btn-info" routerLink="./listar" routerLinkActive="active">Listado
+                    Citas</a>
+            </li>
+            <li class="nav-item">
+                <a id="linkCitaCrear" class="btn btn-info" routerLink="./crear" routerLinkActive="active">Crear Cita</a>
+            </li>
+        </ul>
+    </div>
 </nav>
 <router-outlet></router-outlet>
