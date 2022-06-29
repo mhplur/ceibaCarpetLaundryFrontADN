@@ -18,8 +18,7 @@ export class CitaListarComponent implements OnInit {
     this.citaService = citaService;
   }
 
-  ngOnInit(): void {
-    console.log("Entro al metodo de buscar citas");
+  ngOnInit(): void { 
     this.citaResumenDto = this.citaService.getCitas();
   }
 

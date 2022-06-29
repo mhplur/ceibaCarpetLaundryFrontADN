@@ -10,7 +10,7 @@ describe('workspace-project Producto', () => {
     beforeEach(() => {
         page = new AppPage();
         navBar = new NavbarPage();
-        producto = new ProductoPage();
+        producto = new ProductoPage(); 
     });
 
     it('Deberia crear producto', () => {

@@ -24,6 +24,7 @@
     "@angular/platform-browser-dynamic": "~13.3.11",
     "@angular/router": "~13.3.11",
     "generator-eslint": "^3.0.1",
+    "jasmine": "^4.2.1",
     "ngx-cookie-service": "~13.2.1",
     "rxjs": "~7.5.5",
     "sweetalert2": "^7.26.9",

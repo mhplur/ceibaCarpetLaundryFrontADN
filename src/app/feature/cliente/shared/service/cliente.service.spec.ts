@@ -8,7 +8,7 @@ import { ClienteService } from './cliente.service';
 describe('ClienteService', () => {
   let httpMock: HttpTestingController;
   let service: ClienteService;
-  const apiEndpointClienteConsulta = "http://localhost:8081/carpet-laundry/cliente/todos";
+  const apiEndpointClienteConsulta = "http://localhost:8081/carpet-laundry/cliente";
 
   beforeEach(() => {
     const injector = TestBed.configureTestingModule({

@@ -13,7 +13,7 @@ export class ClienteService {
   constructor(protected http: HttpService) { }
 
   public getClientes() {
-    return this.http.doGet(`${this.urlEndPoint}/todos`)
+    return this.http.doGet(`${this.urlEndPoint}`)
       .pipe(map((response: any) => response as Cliente[])); 
   }
 }

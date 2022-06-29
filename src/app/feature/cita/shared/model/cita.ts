@@ -1,7 +1,7 @@
 import { Cliente } from "src/app/feature/cliente/shared/model/cliente";
 import { Tarifa } from "./tarifa";
 
-export class Cita {
+export interface Cita {
     id: number;
     client: Cliente; 
     tarifa: Tarifa;
