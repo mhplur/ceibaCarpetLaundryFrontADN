@@ -15,7 +15,8 @@ export class CitaService {
   }
 
   public create(citaDto: CitaDto) {
-    return this.http.doPost<CitaDto, boolean>(`${environment.endpoint}`, citaDto);
+    console.log(`${environment.endpoint}`)
+    return this.http.doPost<CitaDto, boolean>(`${environment.endpoint}/cita`, citaDto);
   }
 
   public cancelarCita(id: number) {

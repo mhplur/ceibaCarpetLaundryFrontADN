@@ -37,7 +37,7 @@ describe('CitaService', () => {
       expect(response).toBe(true);
     });
 
-    const req = httpMock.expectOne(`${environment.endpoint}`);
+    const req = httpMock.expectOne(`${environment.endpoint}/cita`);
     expect(req.request.method).toBe('POST');
     expect(req.request.body).toBe(dummyCita);
     expect(req.request.responseType).toEqual('json');
