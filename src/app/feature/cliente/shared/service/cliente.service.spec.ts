@@ -1,6 +1,7 @@
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { HttpService } from '@core/services/http.service';
+import { environment } from 'src/environments/environment';
 import { Cliente } from '../model/cliente';
 
 import { ClienteService } from './cliente.service';
@@ -8,7 +9,6 @@ import { ClienteService } from './cliente.service';
 describe('ClienteService', () => {
   let httpMock: HttpTestingController;
   let service: ClienteService;
-  const apiEndpointClienteConsulta = "http://localhost:8081/carpet-laundry/cliente";
 
   beforeEach(() => {
     const injector = TestBed.configureTestingModule({
@@ -37,7 +37,7 @@ describe('ClienteService', () => {
       expect(clientes).toEqual(dummyClientes);
     });
 
-    const req = httpMock.expectOne(apiEndpointClienteConsulta);
+    const req = httpMock.expectOne(`${environment.endpoint}/cliente`);
     expect(req.request.method).toBe('GET');
     req.flush(dummyClientes);
   })

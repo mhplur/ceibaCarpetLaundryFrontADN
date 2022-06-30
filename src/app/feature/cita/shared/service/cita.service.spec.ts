@@ -1,6 +1,7 @@
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { HttpService } from '@core/services/http.service';
+import { environment } from 'src/environments/environment';
 import { CitaResumenDto } from '../model/citaResumenDto';
 
 import { CitaService } from './cita.service';
@@ -8,14 +9,13 @@ import { CitaService } from './cita.service';
 describe('CitaService', () => {
   let httpMock: HttpTestingController;
   let service: CitaService;
-  const apiEndpointCitaConsulta = "http://localhost:8081/carpet-laundry/cita/activa";
 
   beforeEach(() => {
     const injector = TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
       providers: [CitaService, HttpService]
     });
-    httpMock = injector.inject(HttpTestingController); 
+    httpMock = injector.inject(HttpTestingController);
     service = TestBed.inject(CitaService);
   });
 
@@ -36,7 +36,7 @@ describe('CitaService', () => {
       expect(citas).toEqual(dummyCitas);
     });
 
-    const req = httpMock.expectOne(apiEndpointCitaConsulta);
+    const req = httpMock.expectOne(`${environment.endpoint}/cita/activa`);
     expect(req.request.method).toBe('GET');
     req.flush(dummyCitas);
   })
