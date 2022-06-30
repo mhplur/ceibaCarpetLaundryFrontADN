@@ -1,6 +1,7 @@
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { HttpService } from '@core/services/http.service';
+import { CitaMockService } from '@shared/mock/cita-mock-service';
 import { environment } from 'src/environments/environment';
 import { CitaResumenDto } from '../model/citaResumenDto';
 
@@ -9,6 +10,7 @@ import { CitaService } from './cita.service';
 describe('CitaService', () => {
   let httpMock: HttpTestingController;
   let service: CitaService;
+  const citaMockService: CitaMockService = new CitaMockService();
 
   beforeEach(() => {
     const injector = TestBed.configureTestingModule({
@@ -22,6 +24,19 @@ describe('CitaService', () => {
   it('should be created', () => {
     const citaService: CitaService = TestBed.inject(CitaService);
     expect(citaService).toBeTruthy();
+  });
+
+  it('deberia crear una cita', () => {
+    const dummyCita = citaMockService.crearCita();
+    
+    service.create(dummyCita).subscribe((response) => {
+      expect(response).toBe(true);
+    });
+
+    const req = httpMock.expectOne(`${environment.endpoint}`);
+    expect(req.request.method).toBe('POST');
+    expect(req.request.body).toBe(dummyCita);
+    expect(req.request.responseType).toEqual('json');
   });
 
   it('deberia listar citas', () => {
