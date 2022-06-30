@@ -1,6 +1,11 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <!--<a id="linkCliente" class="btn btn-info" routerLink="./" routerLinkActive="active"
-        [routerLinkActiveOptions]="{ exact: true }">Cliente</a>-->
-    <a id="linkCitaCliente" class="btn btn-info" routerLink="./listar" routerLinkActive="active">Listado Clientes</a>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+                <a id="linkCitaCliente" class="btn btn-info" routerLink="./listar" routerLinkActive="active">Listado
+                    Clientes</a>
+            </li>
+        </ul>
+    </div>
 </nav>
 <router-outlet></router-outlet>

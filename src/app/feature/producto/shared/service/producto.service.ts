@@ -6,7 +6,7 @@ import { Producto } from '../model/producto';
 
 
 @Injectable()
-export class ProductoService { 
+export class ProductoService {  
 
   constructor(protected http: HttpService) { } 
 
