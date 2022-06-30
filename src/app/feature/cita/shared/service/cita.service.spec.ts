@@ -21,6 +21,10 @@ describe('CitaService', () => {
     service = TestBed.inject(CitaService);
   });
 
+  afterEach(() => {
+    httpMock.verify();
+  });
+
   it('should be created', () => {
     const citaService: CitaService = TestBed.inject(CitaService);
     expect(citaService).toBeTruthy();
