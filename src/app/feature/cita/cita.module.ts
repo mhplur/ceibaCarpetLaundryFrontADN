@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { SharedModule } from '@shared/shared.module';
 
 import { CitaRoutingModule } from './cita-routing.module';
@@ -16,7 +17,8 @@ import { CitaService } from './shared/service/cita.service';
   ],
   imports: [
     CitaRoutingModule,
-    SharedModule
+    SharedModule,
+    RouterModule
   ],
   providers: [CitaService] 
 })

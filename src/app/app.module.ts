@@ -23,7 +23,7 @@ import { ClienteModule } from './feature/cliente/cliente.module';
     ProductoModule,
     CitaModule,
     ClienteModule,
-    CoreModule
+    CoreModule,
   ],
   providers: [CookieService],
   bootstrap: [AppComponent],

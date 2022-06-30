@@ -8,13 +8,15 @@ import { ClienteService } from '../../shared/service/cliente.service';
 import { of } from 'rxjs';
 
 import { ClienteListarComponent } from './cliente-listar.component';
+import { ClienteMockService } from '@shared/mock/cliente-mock-service';
 
 describe('ClienteListarComponent', () => {
   let component: ClienteListarComponent;
   let fixture: ComponentFixture<ClienteListarComponent>;
   let clienteService: ClienteService;
-  const cliente1: Cliente = new Cliente(1, '001', 'MILTON PAREDES', 'QUITO');
-  const cliente2: Cliente = new Cliente(2, '002', 'JUAN ANDRADE', 'MEDELLIN');
+  const clienteMockSercice: ClienteMockService = new ClienteMockService();
+  const cliente1 = clienteMockSercice.crearCliente1();
+  const cliente2 = clienteMockSercice.crearCliente2();
   const listClientes: Cliente[] =
     [
       cliente1,

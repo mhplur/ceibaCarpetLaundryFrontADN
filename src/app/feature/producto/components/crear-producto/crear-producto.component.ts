@@ -15,7 +15,7 @@ export class CrearProductoComponent implements OnInit {
   
   constructor(protected productoServices: ProductoService) { }
 
-  ngOnInit() {
+  ngOnInit() { 
     this.construirFormularioProducto();
   }
 

@@ -1,5 +1,5 @@
 
-export class CitaResumenDto {
+export interface CitaResumenDto {
     id: number;
     clienteNombre: string;
     tarifaNombre: string;

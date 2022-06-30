@@ -1,15 +1,18 @@
+import { HttpResponse } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { HttpService } from '@core/services/http.service';
 import { CitaMockService } from '@shared/mock/cita-mock-service';
 import { environment } from 'src/environments/environment';
-import { CitaResumenDto } from '../model/citaResumenDto';
 
 import { CitaService } from './cita.service';
 
 describe('CitaService', () => {
   let httpMock: HttpTestingController;
   let service: CitaService;
+  const apiEndpointCitaActivas = `${environment.endpoint}/cita/activa`;
+  const apiEndpointCitaCancelar = `${environment.endpoint}/cita/cancelar`;
+  const apiEndpointCitaCrear = `${environment.endpoint}/cita`;
   const citaMockService: CitaMockService = new CitaMockService();
 
   beforeEach(() => {
@@ -32,31 +35,39 @@ describe('CitaService', () => {
 
   it('deberia crear una cita', () => {
     const dummyCita = citaMockService.crearCita();
-    
+
     service.create(dummyCita).subscribe((response) => {
       expect(response).toBe(true);
     });
 
-    const req = httpMock.expectOne(`${environment.endpoint}/cita`);
+    const req = httpMock.expectOne(apiEndpointCitaCrear);
     expect(req.request.method).toBe('POST');
     expect(req.request.body).toBe(dummyCita);
     expect(req.request.responseType).toEqual('json');
   });
 
-  it('deberia listar citas', () => {
-    const dummyCitas: CitaResumenDto[] =
-      [
-        { id: 1, clienteNombre: 'MILTON PAREDES', tarifaNombre: 'VAPOR O AGUA CALIENTE', fechaCita: new Date('2022-06-20'), horaCita: '08:00:00', horario: 'DIA', estado: 1, costo: 15, metrosCuadrados: 1 },
-        { id: 2, clienteNombre: 'JUAN ANDRADE', tarifaNombre: 'VAPOR O AGUA CALIENTE', fechaCita: new Date('2022-06-20'), horaCita: '12:00:00', horario: 'DIA', estado: 1, costo: 15, metrosCuadrados: 1 }
-      ];
+  
+  it('deberia cancelar una cita', () => {
+    const dummyCita = citaMockService.crearCitaConId();
+    service.cancelarCita(dummyCita.id).subscribe((respuesta) => {
+      expect(respuesta).toEqual(true);
+    });
+    const req = httpMock.expectOne(`${apiEndpointCitaCancelar}/1`);
+    expect(req.request.method).toBe('POST');
+    req.event(new HttpResponse<boolean>({ body: true }));
+  });
+
+  it('deberia listar citas activas', () => {
+    const dummyCitas = citaMockService.listar2Citas();
 
     service.getCitas().subscribe(citas => {
       expect(citas.length).toBe(2);
       expect(citas).toEqual(dummyCitas);
     });
 
-    const req = httpMock.expectOne(`${environment.endpoint}/cita/activa`);
+    const req = httpMock.expectOne(apiEndpointCitaActivas);
     expect(req.request.method).toBe('GET');
     req.flush(dummyCitas);
-  })
+  });
+
 });

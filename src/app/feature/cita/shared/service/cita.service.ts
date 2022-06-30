@@ -15,12 +15,10 @@ export class CitaService {
   }
 
   public create(citaDto: CitaDto) {
-    console.log(`${environment.endpoint}`)
     return this.http.doPost<CitaDto, boolean>(`${environment.endpoint}/cita`, citaDto);
   }
 
   public cancelarCita(id: number) {
-    console.log("Este es el id: " + id)
     return this.http.doPost<number, boolean>(`${environment.endpoint}/cita/cancelar/${id}`, id);
   }
 }

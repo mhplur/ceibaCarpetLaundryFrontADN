@@ -1,6 +1,6 @@
 import { AppPage } from '../app.po';
+import { CitaPage } from '../page/cita/cita.po';
 import { NavbarPage } from '../page/navbar/navbar.po';
-import { CitaPage } from '../page/producto/cita.po';
 
 describe('workspace-project Cita', () => {
     let page: AppPage;
@@ -15,15 +15,13 @@ describe('workspace-project Cita', () => {
 
     it('Deberia crear producto', () => {
         page.navigateTo();
-        navBar.clickBotonCitas();
-        cita.clickBotonCrearCitas
+        navBar.clickBotonProductos();
+        cita.clickBotonCrearProductos();
     });
 
     it('Deberia listar productos', () => {
         page.navigateTo();
-        navBar.clickBotonCitas();
-        cita.clickBotonListarCitas();
-
-        expect(cita.contarCitas()).toBe(3);
+        navBar.clickBotonCitas
+        cita.clickBotonCrearProductos();
     });
 });

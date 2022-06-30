@@ -1,6 +1,7 @@
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { HttpService } from '@core/services/http.service';
+import { ClienteMockService } from '@shared/mock/cliente-mock-service';
 import { environment } from 'src/environments/environment';
 import { Cliente } from '../model/cliente';
 
@@ -9,13 +10,14 @@ import { ClienteService } from './cliente.service';
 describe('ClienteService', () => {
   let httpMock: HttpTestingController;
   let service: ClienteService;
+  const clienteMockSercice: ClienteMockService = new ClienteMockService();
 
   beforeEach(() => {
     const injector = TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
       providers: [ClienteService, HttpService]
     });
-    httpMock = injector.inject(HttpTestingController); 
+    httpMock = injector.inject(HttpTestingController);
     service = TestBed.inject(ClienteService);
   });
 
@@ -25,13 +27,15 @@ describe('ClienteService', () => {
   });
 
   it('deberia listar citas', () => {
-    const cliente1: Cliente = new Cliente(1, '001', 'MILTON PAREDES', 'QUITO');
-    const cliente2: Cliente = new Cliente(2, '002', 'JUAN ANDRADE', 'MEDELLIN');
+    const cliente1 = clienteMockSercice.crearCliente1();
+    const cliente2 = clienteMockSercice.crearCliente2();
+
+
     const dummyClientes: Cliente[] =
-    [
-      cliente1,
-      cliente2
-    ]
+      [
+        cliente1,
+        cliente2
+      ]
     service.getClientes().subscribe(clientes => {
       expect(clientes.length).toBe(2);
       expect(clientes).toEqual(dummyClientes);
